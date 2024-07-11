@@ -23,12 +23,13 @@ resources
 你需要更改lilypadoc.properties中的git.remote属性，将其改成git仓库的ssh路径
 
 然后将您的私钥（默认查找id_rsa，可以通过lilypadoc.properties中的git.pri.key.name来修改）置于
-
+```
 lilypadoc-application
 
   └── resources
   
       └── customConfig
+```
 
 目录下
 
@@ -96,9 +97,9 @@ bin
 ├── start.bat #win环境启动脚本
 
 ├── start.sh #待补充
-```
 
 └── stop.bat #win环境关闭脚本
+```
 
 
 
