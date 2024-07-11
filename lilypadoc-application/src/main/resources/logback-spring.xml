@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}/}spring.log}"/>
+    <property name="IMS_LOG_PATTERN" value="[%level][%d{yyyy-MM-dd HH:mm:ss SSS}][%t][][%X{request_id}][][][%m][]%n"/>
+    <property name="METRICS_LOG_PATTERN" value="[%level][%d{yyyy-MM-dd HH:mm:ss SSS}][%m]%n"/>
+    <property name="COMMON_LOG_PATTERN"
+      value="[%level] %d{yyyy-MM-dd HH:mm:ss.SSS}[%t][%X{request_id}] %logger{32}:%L : [%m][]%n"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${COMMON_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_PATH}/${LOG_FILE}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 日志输出格式 -->
+        <encoder>
+            <pattern>${COMMON_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC-CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>102400</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="CONSOLE"/>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>102400</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <appender name="JVM-STAT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${METRICS_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_PATH}/${LOG_FILE}-stat-jvm.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE}-stat-jvm.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ASYNC-JVM-STAT" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>102400</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="JVM-STAT"/>
+    </appender>
+
+    <appender name="SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${COMMON_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_PATH}/${LOG_FILE}-sql.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE}-sql.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ASYNC-SQL" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>102400</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="SQL"/>
+    </appender>
+
+    <appender name="SLOWQUERY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${COMMON_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_PATH}/${LOG_FILE}-slow-query.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${LOG_FILE}-slow-query.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>1024MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.apache.http" level="INFO" additivity="false">
+        <appender-ref ref="ASYNC"/>
+    </logger>
+
+    <logger name="org.apache.ibatis" level="DEBUG" additivity="false">
+        <appender-ref ref="ASYNC-SQL"/>
+    </logger>
+
+    <logger name="org.mybatis.spring" level="DEBUG" additivity="false">
+        <appender-ref ref="ASYNC-SQL"/>
+    </logger>
+
+    <logger name="com.diode.lilypadoc" level="INFO" additivity="false">
+        <appender-ref ref="ASYNC"/>
+        <appender-ref ref="ASYNC-CONSOLE"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNC"/>
+        <appender-ref ref="ASYNC-CONSOLE"/>
+    </root>
+</configuration>

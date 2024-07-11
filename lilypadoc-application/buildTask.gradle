@@ -1,0 +1,41 @@
+tasks.register('copyJars', Copy) {
+    dependsOn 'jar'
+    into "$buildDir/lib"
+    from jar
+    from configurations.runtimeClasspath.filter { it.name.endsWith('.jar') }
+}
+
+tasks.register('copyWebResources', Copy) {
+    into "$buildDir/web"
+    from 'src/main/resources/html'
+}
+
+tasks.register('copyOtherResources', Copy) {
+    into "$buildDir/conf"
+    from 'src/main/resources'
+    exclude "html/**"
+    exclude '**/*-dev.*'
+}
+
+tasks.register('copyOfficalExtension', Copy) {
+    into "$buildDir/extension"
+    from "${rootProject.projectDir}/extension"
+}
+
+tasks.register('copyReadme', Copy) {
+    into "$buildDir"
+    from "readme.md"
+}
+
+tasks.register('buildApp') {
+    dependsOn clean
+    dependsOn copyJars
+    dependsOn copyWebResources
+    dependsOn copyOtherResources
+    dependsOn copyOfficalExtension
+    dependsOn copyReadme
+
+    doLast {
+        println 'Application build complete.'
+    }
+}

@@ -1,0 +1,78 @@
+/*@RESOURCE AREA*/
+/*@RESOURCE AREA*//*@END*/
+
+@tailwind base;
+@tailwind components;
+
+.header-text {
+    @apply text-lg;
+    @apply font-sans;
+}
+
+.slidable-header {
+    @apply transition-[top];
+    @apply duration-500;
+    @apply ease-in-out;
+    @apply z-10;
+    @apply fixed;
+    @apply top-0;
+    @apply w-full;
+}
+
+/* 对于支持 ::-webkit-scrollbar 的浏览器 */
+.thin-scrollbar::-webkit-scrollbar {
+    width: 8px; /*控制滚动条的宽度 */
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1; /* 滚动条内的背景颜色 */
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+    background: #bfbdbd; /* 滚动条内块的背景颜色 */
+    border-radius: 4px;
+/* 滚动条内块的边角 */
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555; /* 鼠标悬停在滚动条上的背景颜色 */
+}
+
+/* 对于支持 scrollbar-width 的浏览器（如Firefox） */
+.thin-scrollbar {
+    scrollbar-width: thin; /*Firefox的滚动条宽度*/
+    scrollbar-color: #bfbdbd #f1f1f1; /*滚动条内块和轨道的颜色*/
+}
+
+@tailwind utilities;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

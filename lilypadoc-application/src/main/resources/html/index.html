@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/template/css/daisyui.css" rel="stylesheet" type="text/css"/>
+    <link href="/template/css/main.css" rel="stylesheet" type="text/css"/>
+    <script src="/template/js/jquery.min.js"></script>
+    <script src="/template/js/base.js"></script>
+    <script src="/template/js/themeChange.js"></script>
+    <script src="/template/js/full.js"></script>
+    <script src="/template/js/index.js"></script>
+    <!--@RESOURCE--><script src="/plugin-resource/Searcher/js/function.js" >
+</script>
+<script src="/plugin-resource/SearcherIndex/js/function.js" >
+</script>
+<!--@RESOURCE--><!--@END-->
+    <script src="/template/js/final.js"></script>
+</head>
+<body>
+<div class="lilypadoc-view flex flex-col invisible">
+    <div id="header" class="slidable-header">
+    </div>
+    <div class="flex flex-col w-full items-start md:flex-row z-0">
+        <main class="flex w-full" id="main">
+            <!--@TEMPLATE INDEX AREA-->
+            <div class="hero min-h-screen">
+                <div class="hero-content text-center">
+                    <div class="max-w-lg">
+                        <h1 class="text-5xl font-bold">春困秋乏</h1>
+                        <p class="py-6">关门睡觉</p>
+
+                        <!--@BODY AREA--><label
+class="input input-bordered flex items-center justify-center gap-1 min-h-11 px-0">
+<select class="select select-bordered border-y-0 border-l-0 border-r focus:outline-none bg-inherit select-sm h-full rounded-r-none" id='searchTypeSelect'>
+<option value="1">版块</option></select>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+fill="currentColor" class="w-4 h-4 opacity-70"><path
+fill-rule="evenodd"
+d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+clip-rule="evenodd" /></svg>
+<input type="text" class="grow bg-inherit" id="searcher-input"
+placeholder="" />
+</label>
+<!--@BODY AREA--><!--@END-->
+
+                    </div>
+                </div>
+            </div>
+            <!--@TEMPLATE INDEX AREA--><!--@END-->
+        </main>
+    </div>
+
+    <div id="footer">
+
+    </div>
+</div>
+<script>
+</script>
+</body>
+</html>

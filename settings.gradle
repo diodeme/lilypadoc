@@ -1,0 +1,5 @@
+rootProject.name = 'lilypadoc'
+include 'lilypadoc-application'
+include 'lilypadoc-standard'
+include 'lilypadoc-core'
+

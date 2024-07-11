@@ -1,0 +1,124 @@
+buildscript {
+    repositories {
+        maven {
+            url = 'https://maven.aliyun.com/repository/public'
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+static def repositoryDomain() {
+//    return "https://maven.aliyun.com"
+    return "http://diode.blue:4781";
+//    return "http://192.168.50.72:8081";
+}
+
+def getRepositoryPublic() {
+    return repositoryDomain() + project.findProperty('repository.public.url')
+}
+
+def getRepositoryRelease() {
+    return repositoryDomain() + project.findProperty('repository.release.url')
+}
+
+def getRepositorySnapshot() {
+    return repositoryDomain() + project.findProperty('repository.snapshot.url')
+}
+
+allprojects {
+    group 'com.diode.lilypadoc'
+    version '0.0.1-SNAPSHOT'
+
+    ext {
+        profile = "dev"
+    }
+}
+
+subprojects {
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: "maven-publish"
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        }
+    }
+
+    java {
+//        withJavadocJar()
+        withSourcesJar()
+    }
+
+    if (it.name.matches('lilypadoc-standard')) {
+        publishing {
+            repositories {
+                maven {
+                    name = "nexus"
+                    credentials(PasswordCredentials)
+                    allowInsecureProtocol = true
+                    url = version.endsWith('SNAPSHOT') ? getRepositorySnapshot() : getRepositoryRelease()
+                }
+            }
+            publications {
+                mavenJava(MavenPublication) {
+                    from project.components.java
+                    versionMapping {
+                        usage('java-api') {
+                            fromResolutionOf('runtimeClasspath')
+                        }
+                        usage('java-runtime') {
+                            fromResolutionResult()
+                        }
+                    }
+                    pom {
+                        name = "lilypadoc"
+                        description = ""
+                        url = ""
+                        inceptionYear = "2023"
+
+                        developers {
+                            developer {
+                                id = "diode"
+                                name = "diode"
+                                email = "diodemeu@gmail.com"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    compileJava {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.24'
+        annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    }
+
+    repositories {
+        maven {
+            allowInsecureProtocol = true
+            url getRepositoryPublic()
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
