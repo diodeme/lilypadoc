@@ -8,7 +8,7 @@ java版本：java17
 本地启动时将md文件放在{根目录}/.docs文件夹下
 
 核心配置位于lilypadoc-application目录下：
-
+```
 resources
 
 └── customConfig
@@ -16,6 +16,7 @@ resources
     ├── lilypadoc.properties
     
     └── template.config
+```
 
 如果需要使用git同步文件
 
@@ -36,7 +37,7 @@ lilypadoc-application
 POST http://localhost:4399/operation/parseAll
 ```
 初始化后生成的html文件默认在
-
+```
 lilypadoc-application
 
   └── resources
@@ -44,6 +45,7 @@ lilypadoc-application
       └── html
       
           └── docs
+```
 目录下
 
 访问`http://127.0.0.1:4399/docs/{文件相对路径}`来进行查阅
@@ -60,7 +62,7 @@ lilypadoc-application
 ## 关于打包
 
 目录结构如下
-
+```
 build
 
 ├── bin
@@ -78,9 +80,9 @@ build
 ├── web
 
 └── readme.md
-
+```
 其中bin目录结构如下
-
+```
 bin
 
 ├── application.pid  #代表程序是否执行中
@@ -94,6 +96,7 @@ bin
 ├── start.bat #win环境启动脚本
 
 ├── start.sh #待补充
+```
 
 └── stop.bat #win环境关闭脚本
 
