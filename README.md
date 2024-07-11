@@ -1,9 +1,9 @@
 ## 关于本地启动
-java版本：java17
+`java版本`：java17
 
-本地启动时环境变量：PROJECT_PATH=本机根路径 eg:D:\Projects\code\java\lilypadoc
+`本地启动时环境变量`：PROJECT_PATH=本机根路径 eg:D:\Projects\code\java\lilypadoc
 
-本地启动时使用配置环境：dev
+`本地启动时使用配置环境`：dev
 
 本地启动时将md文件放在{根目录}/.docs文件夹下
 
@@ -61,6 +61,7 @@ lilypadoc-application
 插件源码位于https://github.com/diodeme/lilypadoc-extension
 
 ## 关于打包
+执行`gradle lilypadoc-application:buildApp`命令
 
 目录结构如下
 ```
