@@ -10,8 +10,11 @@ java版本：java17
 核心配置位于lilypadoc-application目录下：
 
 resources
+
 └── customConfig
+
     ├── lilypadoc.properties
+    
     └── template.config
 
 如果需要使用git同步文件
@@ -21,7 +24,9 @@ resources
 然后将您的私钥（默认查找id_rsa，可以通过lilypadoc.properties中的git.pri.key.name来修改）置于
 
 lilypadoc-application
+
   └── resources
+  
       └── customConfig
 
 目录下
@@ -33,8 +38,11 @@ POST http://localhost:4399/operation/parseAll
 初始化后生成的html文件默认在
 
 lilypadoc-application
+
   └── resources
+  
       └── html
+      
           └── docs
 目录下
 
@@ -54,24 +62,39 @@ lilypadoc-application
 目录结构如下
 
 build
+
 ├── bin
+
 ├── conf
+
 ├── content
+
 ├── extension
+
 ├── lib
+
 ├── logs
+
 ├── web
+
 └── readme.md
 
 其中bin目录结构如下
 
 bin
+
 ├── application.pid  #代表程序是否执行中
+
 ├── install.bat #待补充
+
 ├── install.sh #待补充
+
 ├── nohup.out #启动日志
+
 ├── start.bat #win环境启动脚本
+
 ├── start.sh #待补充
+
 └── stop.bat #win环境关闭脚本
 
 
